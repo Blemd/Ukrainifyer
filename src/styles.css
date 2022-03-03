@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+:root {
+  --ukraine-top: #0057B8;
+  --ukraine-bottom: #FFD700;
+}
+
+h1, h2, h3, h4, h5, span, p, a, small {
+  font-family: 'Roboto', serif;
+}
+
+html, body {
+  background-color: #e7e7e7;
+}
