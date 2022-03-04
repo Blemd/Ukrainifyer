@@ -1,7 +1,19 @@
 <div class="avatar-container">
-  <p class="title">Normal flag</p>
-  <img class="left-caret" src="assets/icons/tabler-icon-caret-left.svg">
-  <img [src]="imageURL">
-  <img class="right-caret" src="assets/icons/tabler-icon-caret-right.svg">
-  <a class="download" href="#">Download template</a>
+  <p class="title">{{ overlayName }}</p>
+  <img class="left-caret" (click)="previous()" src="assets/icons/tabler-icon-caret-left.svg">
+
+  <img class="avatar-overlay" [src]="overlaySrc" [ngStyle]="{ 'opacity': overlayOpacity, 'z-index': '5' }">
+  <img class="avatar-image" [src]="imageURL">
+
+  <img class="right-caret" (click)="next()" src="assets/icons/tabler-icon-caret-right.svg">
+  <a class="download" [href]="overlaySrc">
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-download" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M19 18a3.5 3.5 0 0 0 0 -7h-1a5 4.5 0 0 0 -11 -2a4.6 4.4 0 0 0 -2.1 8.4"></path>
+      <line x1="12" y1="13" x2="12" y2="22"></line>
+      <polyline points="9 19 12 22 15 19"></polyline>
+    </svg>
+
+    Download template
+  </a>
 </div>

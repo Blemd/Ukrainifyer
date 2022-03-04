@@ -20,17 +20,21 @@
 
 .left-caret {
   grid-area: left !important;
-  width: 4rem !important;
+  width: 3rem !important;
 }
 
 .right-caret {
+  display: inline;
+  float: right !important;
   grid-area: right !important;
-  width: 4rem !important;
+  width: 3rem !important;
 }
 
 .title {
   grid-area: title;
-  height: 1px;
+  font-size: 14pt;
+  font-weight: bold;
+  padding-bottom: 0.1rem;
 }
 
 .download {

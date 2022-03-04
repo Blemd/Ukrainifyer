@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ImageCroppedEvent, LoadedImage} from "ngx-image-cropper";
 import {FileChangeEvent} from "@angular/compiler-cli/src/perform_watch";
 import {ImageService} from "../image.service";
+import {Options} from "@angular-slider/ngx-slider";
 
 @Component({
   selector: 'app-main',
@@ -9,6 +10,14 @@ import {ImageService} from "../image.service";
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
+  options: Options = {
+    floor: 0,
+    ceil: 100,
+    animate: true,
+    ariaLabel: "Opacity",
+
+  };
+  opacity: number = 65;
 
   constructor(private imageService: ImageService) { }
 

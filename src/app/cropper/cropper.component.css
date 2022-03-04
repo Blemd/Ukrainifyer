@@ -17,6 +17,10 @@
     0px 100px 80px rgba(0, 0, 0, 0.07);
 }
 
+image-cropper {
+  width: auto !important;
+}
+
 .background {
   position: absolute;
   top: 0;
@@ -35,7 +39,6 @@
     background-color: #fff;
   }
 }
-
 
 @media screen and (max-width: 600px) {
   .window {

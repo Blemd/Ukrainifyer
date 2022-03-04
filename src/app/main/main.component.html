@@ -1,6 +1,15 @@
-<h1>Ukrainifyer</h1>
+<div class="headline">
+  <h1>Ukrainifyer</h1>
+  <p>To set a sign, you can "Ukrainify" your avatar here.</p>
+</div>
 
-<app-avatar-selector></app-avatar-selector>
+<div class="image-chooser">
+  <app-avatar-selector class="custom-slider" [overlayOpacity]="opacity / 100"></app-avatar-selector>
+</div>
+
+<div class="options">
+  <ngx-slider [(value)]="opacity" [options]="options"></ngx-slider>
+</div>
 
 <button class="btn">
   <input #imageInput type="file" accept="image/*" (change)="openCropper(imageInput)">
@@ -14,4 +23,8 @@
   <span>Upload your avatar</span>
 </button>
 
-<p>To set a sign, you can "Ukrainify" your profile here.</p>
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Look at my new profile which I created with #ukrainifyer" data-url="https://ukrainifyer.de" data-related="mondei1,blemd27" data-dnt="true" data-show-count="false">Tweet</a>
+<div class="disclaimer">
+  <p>Avatars do not get uploaded anywhere. Everything is client-side.</p>
+  <p>Read our <a href="#">privacy policy</a></p>
+</div>

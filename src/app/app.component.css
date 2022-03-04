@@ -5,10 +5,10 @@
   transform: translate(-50%, -50%);
   width: fit-content;
   padding: 2rem;
-  height: 60vh;
   border: 2px solid #afafaf;
   border-radius: 10px;
   background-color: #efefef;
+  text-align: center;
 
   box-shadow:
     0px 3.6px 1.9px rgba(0, 0, 0, 0.05),
@@ -23,19 +23,25 @@
     0px 233px 122px rgba(0, 0, 0, 0.011);
 }
 
-.footer {
+.authors {
   position: absolute;
-  display: flex;
-  bottom: 0;
+  display: inline-block;
+  width: fit-content;
+  text-align: center;
+  top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%);
   color: #9d9d9d;
+  line-height: 0.5;
 }
 
-.footer svg {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  transform: translateY(50%);
+.authors p {
+  font-size: 11pt;
+}
+
+.authors svg {
+  padding-left: 0.25rem;
+  transform: translateY(25%);
 }
 
 .yellow {
@@ -44,4 +50,14 @@
 
 .blue {
   color: var(--ukraine-top);
+}
+
+@media screen and (max-width: 500px) {
+  .main-content {
+    width: 80vw;
+  }
+
+  .footer p {
+    font-size: 8pt;
+  }
 }

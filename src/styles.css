@@ -11,6 +11,20 @@ h1, h2, h3, h4, h5, span, p, a, small {
   font-family: 'Roboto', serif;
 }
 
+a {
+  color: #3b4b4b;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+a:hover {
+  text-decoration: dotted;
+}
+
+a:visited {
+  color: #6a939d;
+}
+
 html, body {
   background-color: #e7e7e7;
 }

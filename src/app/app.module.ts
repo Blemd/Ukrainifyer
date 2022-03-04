@@ -6,6 +6,7 @@ import { AvatarSelectorComponent } from './avatar-selector/avatar-selector.compo
 import { MainComponent } from './main/main.component';
 import {ImageCropperModule} from "ngx-image-cropper";
 import { CropperComponent } from './cropper/cropper.component';
+import {NgxSliderModule} from "@angular-slider/ngx-slider";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CropperComponent } from './cropper/cropper.component';
   ],
   imports: [
     BrowserModule,
-    ImageCropperModule
+    ImageCropperModule,
+    NgxSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
