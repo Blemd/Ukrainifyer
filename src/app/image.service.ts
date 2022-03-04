@@ -14,11 +14,16 @@ export class ImageService {
 
   // Holds original selected image file as Base64.
   imageData?: string;
+
+  // Holds final (cropped) image file as Base64.
+  finalImageData: BehaviorSubject<string>;
+
   template?: Template;
   opacity: number;
 
   constructor() {
     this.opacity = 0.5;
     this.showCropper = new BehaviorSubject<boolean>(false);
+    this.finalImageData = new BehaviorSubject<string>("");
   }
 }

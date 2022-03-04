@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ImageService} from "../image.service";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-avatar-selector',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AvatarSelectorComponent implements OnInit {
 
-  constructor() { }
+  imageURL?: SafeResourceUrl;
+
+  constructor(private imageService: ImageService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    this.imageService.finalImageData.subscribe(image => {
+      if (image === "") return;
+
+      console.debug("New image has been saved. Display ...");
+
+      // Generate base64 url
+      this.imageURL = this.sanitizer.bypassSecurityTrustResourceUrl(image);
+    });
+
+    this.imageURL = "assets/avatar.png";
   }
 
 }

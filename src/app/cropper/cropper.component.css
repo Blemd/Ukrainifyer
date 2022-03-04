@@ -1,13 +1,20 @@
 .window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 200 !important;
   background-color: #fff;
   border-radius: 10px;
-}
+  padding: 1.25rem;
 
-.cropper {
-  z-index: 200;
-  max-height: 80vh;
-  max-width: 80vw;
+  box-shadow:
+    0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+    0px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+    0px 12.5px 10px rgba(0, 0, 0, 0.035),
+    0px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+    0px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+    0px 100px 80px rgba(0, 0, 0, 0.07);
 }
 
 .background {
@@ -16,6 +23,25 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 100 !important;
+  z-index: 200 !important;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 1000px) {
+  .window {
+    position: absolute;
+    width: 80vw;
+    z-index: 200 !important;
+    background-color: #fff;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  .window {
+    position: absolute;
+    width: 90vw;
+    z-index: 200 !important;
+    background-color: #fff;
+  }
 }

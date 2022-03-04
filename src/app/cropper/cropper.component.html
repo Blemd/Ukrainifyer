@@ -3,14 +3,13 @@
   <h1>Crop your avatar</h1>
   <image-cropper
     class="cropper"
+    format="png"
+    [autoCrop]="false"
     [imageBase64]="image"
     [maintainAspectRatio]="true"
     [cropperMinWidth]="256"
-    format="png"
     (imageCropped)="imageCropped($event)"
-    (imageLoaded)="imageLoaded($event)"
-    (cropperReady)="cropperReady()"
     (loadImageFailed)="loadImageFailed()"
   ></image-cropper>
-  <button>Done</button>
+  <button (click)="cropImage()">Done</button>
 </div>

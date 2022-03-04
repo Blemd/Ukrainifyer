@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ImageCroppedEvent, LoadedImage} from "ngx-image-cropper";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ImageCroppedEvent, ImageCropperComponent, LoadedImage} from "ngx-image-cropper";
 import {ImageService} from "../image.service";
 
 @Component({
@@ -8,6 +8,9 @@ import {ImageService} from "../image.service";
   styleUrls: ['./cropper.component.css']
 })
 export class CropperComponent implements OnInit {
+
+  @ViewChild(ImageCropperComponent)
+  imageCropper!: ImageCropperComponent;
 
   image?: string;
   croppedImage: any = '';
@@ -21,18 +24,24 @@ export class CropperComponent implements OnInit {
 
   imageCropped(event: ImageCroppedEvent) {
     console.debug("Image cropped");
-  }
+    if (event.base64 !== null) {
+      if (event.base64 != null) {
+        this.imageService.finalImageData.next(event.base64);
 
-  imageLoaded(image: LoadedImage) {
-    console.debug("Image has been loaded successfully.");
-  }
-
-  cropperReady() {
-    console.debug("Cropper is ready!");
+        // This will destroy this component
+        this.imageService.showCropper.next(false);
+      }
+    }
   }
 
   loadImageFailed() {
     console.error("Loading the image failed for some reason.");
   }
 
+  /**
+   * User clicks on "Done" button
+   */
+  cropImage() {
+    this.imageCropper.crop();
+  }
 }
