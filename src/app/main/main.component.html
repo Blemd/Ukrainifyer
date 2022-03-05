@@ -4,12 +4,16 @@
 </div>
 
 <div class="image-chooser">
-  <app-avatar-selector class="custom-slider" [overlayOpacity]="opacity / 100"></app-avatar-selector>
+  <app-avatar-selector class="custom-slider" (selectedTemplate)="updateTemplate($event)" [overlayOpacity]="opacity / 100"></app-avatar-selector>
 </div>
 
+<canvas style="display: none;" #canvas height="512" width="512"></canvas>
+
 <div class="options">
+  <p style="text-align: center">Opacity of template</p>
   <ngx-slider [(value)]="opacity" [options]="options"></ngx-slider>
 </div>
+
 
 <button class="btn">
   <input #imageInput type="file" accept="image/*" (change)="openCropper(imageInput)">

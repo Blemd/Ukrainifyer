@@ -8,6 +8,7 @@
     [imageBase64]="image"
     [maintainAspectRatio]="true"
     [cropperMinWidth]="256"
+    [cropperMaxWidth]="1024"
     (imageCropped)="imageCropped($event)"
     (loadImageFailed)="loadImageFailed()"
   ></image-cropper>

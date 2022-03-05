@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ImageService} from "../image.service";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ImageService, Template} from "../image.service";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
@@ -12,13 +12,18 @@ export class AvatarSelectorComponent implements OnInit {
   @Input()
   overlayOpacity: number = 0.5;
 
+  @Output()
+  selectedTemplate: EventEmitter<Template>;
   overlayIndex: number = 0;
   overlayName?: string;
 
   imageURL?: SafeResourceUrl;
   overlaySrc?: string;
 
-  constructor(private imageService: ImageService, private sanitizer: DomSanitizer) { }
+  constructor(private imageService: ImageService, private sanitizer: DomSanitizer) {
+    this.selectedTemplate = new EventEmitter<Template>();
+    this.selectedTemplate.next(Template.NORMAL_FLAG);
+  }
 
   ngOnInit(): void {
     this.overlaySrc = this.imageService.getTemplatePathByName();
@@ -38,6 +43,8 @@ export class AvatarSelectorComponent implements OnInit {
 
   private updateOverlay() {
     let template = this.imageService.getTemplatePathByIndex(this.overlayIndex);
+    console.log(template);
+    this.selectedTemplate.emit(template);
 
     this.overlaySrc = this.imageService.getTemplatePathByName(template);
     this.overlayName = this.imageService.getTemplateName(template);
@@ -61,9 +68,5 @@ export class AvatarSelectorComponent implements OnInit {
     }
 
     this.updateOverlay();
-  }
-
-  downloadTemplate() {
-
   }
 }

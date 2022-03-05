@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ImageCroppedEvent, LoadedImage} from "ngx-image-cropper";
-import {FileChangeEvent} from "@angular/compiler-cli/src/perform_watch";
-import {ImageService} from "../image.service";
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {ImageService, Template} from "../image.service";
 import {Options} from "@angular-slider/ngx-slider";
 
 @Component({
@@ -9,7 +7,7 @@ import {Options} from "@angular-slider/ngx-slider";
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements AfterViewInit {
   options: Options = {
     floor: 0,
     ceil: 100,
@@ -19,9 +17,28 @@ export class MainComponent implements OnInit {
   };
   opacity: number = 65;
 
-  constructor(private imageService: ImageService) { }
+  @ViewChild('canvas')
+  canvasRef!: ElementRef;
+  canvas?: HTMLCanvasElement;
 
-  ngOnInit(): void {
+  ctx?: CanvasRenderingContext2D;
+  selectedTemplate: Template;
+
+  constructor(private imageService: ImageService) {
+    this.selectedTemplate = Template.NORMAL_FLAG;
+
+    setInterval(() => {
+      console.log(this.selectedTemplate);
+    }, 250);
+  }
+
+  ngAfterViewInit(): void {
+    this.imageService.finalImageData.subscribe(val => {
+      this.downloadImage();
+    });
+
+    this.canvas = this.canvasRef.nativeElement!;
+    this.ctx = this.canvas!.getContext("2d")!;
   }
 
   openCropper(event: any) {
@@ -35,5 +52,56 @@ export class MainComponent implements OnInit {
     });
 
     reader.readAsDataURL(event.files[0]);
+  }
+
+  /**
+   * Put both images into one canvas and then convert this canvas into a Base64 string which can be downloaded.
+   */
+  downloadImage() {
+    if (this.imageService.imageData === undefined && this.selectedTemplate === undefined) {
+      return;
+    }
+
+    let avatar = new Image();
+    avatar.onload = () => {
+      this.canvas!.height = avatar.height;
+      this.canvas!.width = avatar.width;
+
+      this.ctx?.drawImage(avatar, 0, 0);
+
+      let templateOverlay = new Image();
+      templateOverlay.onload = () => {
+        this.ctx!.globalAlpha = this.opacity / 100;
+        this.ctx?.drawImage(templateOverlay, 0, 0, avatar.width, avatar.height);
+
+        this.canvas?.toBlob(blob => {
+          if (blob === null) return;
+
+          const objectURL = URL.createObjectURL(blob);
+
+          const anchor = document.createElement('a');
+          anchor.href = objectURL;
+          anchor.download = "UkrainifyedAvatar.png";
+
+          // Append to the DOM
+          document.body.appendChild(anchor);
+
+          // Trigger `click` event
+          anchor.click();
+
+          // Remove element from DOM
+          document.body.removeChild(anchor);
+        });
+      }
+
+      console.log("Use template:", this.selectedTemplate, "at", this.imageService.getTemplatePathByName(this.selectedTemplate));
+      templateOverlay.src = this.imageService.getTemplatePathByName(this.selectedTemplate);
+    }
+
+    avatar.src = this.imageService.finalImageData.value!;
+  }
+
+  updateTemplate($event: Template) {
+    this.selectedTemplate = $event;
   }
 }
