@@ -1,10 +1,9 @@
-
 :host {
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-rows: 1fr;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 0.6fr 0.1fr auto 0.25fr auto;
+  grid-template-rows: auto 0.6fr 0.1fr auto 0.25fr auto auto;
   gap: 0px 0px;
   grid-template-areas:
     "headline"
@@ -12,7 +11,8 @@
     "options"
     "button"
     "."
-    "disclaimer";
+    "disclaimer"
+    "authors";
   width: 100%;
   height: 100%;
 }
@@ -33,12 +33,13 @@
 
 .btn {
   position: relative;
+  display: inline-block;
   padding: 0.75rem;
   cursor: pointer;
-  border: 2px solid #fff;
+  /*border: 2px solid var(--darker-white);*/
+  border: none;
   outline: none;
   transition: .2s ease;
-  background: #000;
   grid-area: button;
 
   box-shadow:
@@ -48,9 +49,13 @@
     0px 8.9px 5.4px rgba(0, 0, 0, 0.036),
     0px 16.7px 10px rgba(0, 0, 0, 0.043),
     0px 40px 24px rgba(0, 0, 0, 0.06);
-
 }
 
+.btn > * {
+  transition: .2s ease;
+}
+
+/* Upload box */
 .btn input {
   position: absolute;
   top: 0;
@@ -60,14 +65,14 @@
   opacity: 0;
 }
 
-.btn span {
-  transition: .2s ease;
-  font-size: 13pt;
-  color: var(--ukraine-bottom);
-  font-weight: bold;
+.btn svg {
+  align-content: center;
+  vertical-align: middle;
 }
 
-.btn svg {
+.btn span {
+  font-size: 13pt;
+  font-weight: bold;
 }
 
 .btn:hover span {
@@ -76,7 +81,8 @@
 
 .btn:hover {
   transition: .2s ease;
-  border-color: #000;
+  background-color: var(--ukraine-top);
+  border-color: var(--ukraine-bottom);
 
   box-shadow:
     0px 1.1px 0.7px rgba(0, 0, 0, 0.042),
@@ -91,4 +97,23 @@
   grid-area: disclaimer;
   font-size: 10pt;
   color: #525252;
+}
+
+.authors {
+  grid-area: authors;
+  display: inline-block;
+  width: fit-content;
+  text-align: center;
+  margin: auto auto;
+  color: #9d9d9d;
+  line-height: 0.5;
+}
+
+.authors p {
+  font-size: 11pt;
+}
+
+.authors svg {
+  padding-left: 0.25rem;
+  transform: translateY(25%);
 }

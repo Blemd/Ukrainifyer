@@ -4,9 +4,24 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 200 !important;
+
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: max-content auto 1fr auto;
+  grid-template-areas:
+    "headline buttons"
+    "separator separator"
+    "cropper cropper"
+    "info info";
+
   background-color: #fff;
   border-radius: 10px;
+  border: 2px solid var(--darker-white);
   padding: 1.25rem;
+  max-height: 80vh;
+  overflow: hidden;
 
   box-shadow:
     0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
@@ -17,8 +32,54 @@
     0px 100px 80px rgba(0, 0, 0, 0.07);
 }
 
+.small-button {
+  padding: 0.5rem;
+  border: 2px solid var(--darker-white);
+  border-radius: 8px;
+  transition: .2s ease;
+  margin-left: 1rem;
+}
+
+.small-button svg {
+  transform: translate(0, 25%);
+}
+
+.small-button-green:hover {
+  border-color: #249f11;
+  background-color: rgba(36, 159, 17, 0.34);
+}
+
+.small-button-red:hover {
+  border-color: #9f1111;
+  background-color: rgba(159, 17, 17, 0.34);
+}
+
 image-cropper {
-  width: auto !important;
+  grid-area: cropper;
+  width: auto;
+}
+
+.headline {
+  grid-area: headline;
+  line-height: 0.3;
+}
+
+.separator {
+  grid-area: separator;
+  width: 100%;
+  height: 0.2rem;
+  border-radius: 8px;
+  background-color: var(--darker-white);
+}
+
+.buttons {
+  grid-area: buttons;
+  text-align: right;
+}
+
+.info {
+  grid-area: info;
+  text-align: center;
 }
 
 .background {
@@ -28,7 +89,20 @@ image-cropper {
   width: 100vw;
   height: 100vh;
   z-index: 200 !important;
-  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.7);
+  animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+  }
 }
 
 @media screen and (max-width: 1000px) {
@@ -46,5 +120,12 @@ image-cropper {
     width: 90vw;
     z-index: 200 !important;
     background-color: #fff;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .headline {
+    font-size: 13pt;
+    line-height: 2;
   }
 }

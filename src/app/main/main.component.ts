@@ -21,21 +21,29 @@ export class MainComponent implements AfterViewInit {
   canvasRef!: ElementRef;
   canvas?: HTMLCanvasElement;
 
+  @ViewChild('uploadBtn')
+  uploadBtn!: ElementRef;
+
+  // If true, the svg in the button changes color.
+  hover: boolean = false;
+
   ctx?: CanvasRenderingContext2D;
   selectedTemplate: Template;
 
-  constructor(private imageService: ImageService) {
+  constructor(public imageService: ImageService) {
     this.selectedTemplate = Template.NORMAL_FLAG;
-
-    setInterval(() => {
-      console.log(this.selectedTemplate);
-    }, 250);
   }
 
   ngAfterViewInit(): void {
     this.imageService.finalImageData.subscribe(val => {
-      this.downloadImage();
     });
+
+    this.uploadBtn.nativeElement.onmouseover = () => {
+      this.hover = true;
+    }
+    this.uploadBtn.nativeElement.onmouseleave = () => {
+      this.hover = false;
+    }
 
     this.canvas = this.canvasRef.nativeElement!;
     this.ctx = this.canvas!.getContext("2d")!;

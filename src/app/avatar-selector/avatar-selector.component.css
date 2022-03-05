@@ -1,13 +1,14 @@
 .avatar-container {
   display: grid;
   grid-auto-columns: 1fr;
-  grid-template-columns: auto 12rem auto;
+  grid-template-columns: 1fr auto 12rem auto 1fr;
   grid-template-rows: auto auto auto;
   gap: 0px 0px;
   grid-template-areas:
-    ". title ."
-    "left image right"
-    ". download .";
+    ". . title . ."
+    ". left image right ."
+    ". . download . .";
+  width: 100%;
 }
 
 .avatar-container img {
@@ -16,6 +17,10 @@
   width: 12rem;
   object-fit: contain;
   border-radius: 5px;
+}
+
+.avatar-overlay {
+  grid-area: image;
 }
 
 .left-caret {
@@ -39,4 +44,8 @@
 
 .download {
   grid-area: download;
+}
+
+.download svg {
+  transform: translate(0, 4px);
 }

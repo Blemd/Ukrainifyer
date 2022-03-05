@@ -44,4 +44,11 @@ export class CropperComponent implements OnInit {
   cropImage() {
     this.imageCropper.crop();
   }
+
+  /**
+   * User closes window without applying changes.
+   */
+  close() {
+    this.imageService.showCropper.next(false);
+  }
 }
