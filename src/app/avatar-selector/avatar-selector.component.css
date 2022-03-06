@@ -35,6 +35,10 @@
   width: 3rem !important;
 }
 
+.left-caret, .right-caret {
+  margin: auto auto;
+}
+
 .title {
   grid-area: title;
   font-size: 14pt;
@@ -43,6 +47,7 @@
 }
 
 .download {
+  margin-top: 0.25rem;
   grid-area: download;
 }
 

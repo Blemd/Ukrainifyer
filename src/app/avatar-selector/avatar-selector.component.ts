@@ -45,7 +45,9 @@ export class AvatarSelectorComponent implements OnInit {
     });
 
     this.imageService.redraw.subscribe(_ => {
-      this.updatePreview();
+      this.updatePreview().catch(err => {
+        // Suppress
+      });
     });
   }
 

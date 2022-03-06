@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Subject} from "rxjs";
 import {toDataURL} from "./helper";
+import * as ackeeTracker from "ackee-tracker";
+import {AckeeTrackingReturn} from "ackee-tracker";
 
 export enum Template {
   NORMAL_FLAG = 0,
@@ -20,6 +22,8 @@ export enum TemplateMasks {
   providedIn: 'root'
 })
 export class ImageService {
+
+  track: ackeeTracker.AckeeInstance;
 
   showCropper: BehaviorSubject<boolean>;
 
@@ -57,6 +61,11 @@ export class ImageService {
         });
       }
     });
+
+    this.track = ackeeTracker.create("https://stats.ukrainifyer.com", {
+      detailed: true
+    });
+    this.track.record("63d471c4-6150-46ab-bd2e-c7148fedf93f");
   }
 
   getTemplatePathByName(template?: Template) {
@@ -185,7 +194,7 @@ export class ImageService {
   async renderImage(size?: number): Promise<HTMLCanvasElement> {
     return new Promise<HTMLCanvasElement>(async (resolve, reject) => {
       if (this.finalImageData.value === "") {
-        reject("Cannot render canvas if no image is selected!")
+        reject("Cannot render canvas if no image is selected!");
       }
 
       const canvas = document.createElement("canvas");
@@ -240,6 +249,8 @@ export class ImageService {
   }
 
   async downloadImage() {
+    this.track.action('2061b038-27ee-41bc-b746-7ed139aaa297', { key: 'Click', value: 1 });
+
     const canvas = await this.renderImage();
     canvas.toBlob(blob => {
       if (blob === null) return;
