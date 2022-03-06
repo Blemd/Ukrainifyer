@@ -1,7 +1,7 @@
 <div *ngIf="imageService.showCropper.value" class="cropper-window">
-  <app-cropper></app-cropper>
+    <app-cropper></app-cropper>
 </div>
 
 <div class="main-content">
-  <app-main></app-main>
+    <router-outlet></router-outlet>
 </div>

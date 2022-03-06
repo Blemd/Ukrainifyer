@@ -9,6 +9,7 @@ import { CropperComponent } from './cropper/cropper.component';
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
 import { PolicyComponent } from './policy/policy.component';
 import { ImprintComponent } from './imprint/imprint.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ImprintComponent } from './imprint/imprint.component';
   imports: [
     BrowserModule,
     ImageCropperModule,
-    NgxSliderModule
+    NgxSliderModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
