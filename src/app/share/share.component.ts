@@ -18,10 +18,10 @@ export class ShareComponent implements OnInit {
   }
 
   tweet() {
-    this.image.track.action('ec3f0bb1-17f0-4155-85cc-5990dae2c231', { key: 'Click', value: 1 })
+    this.image.track.action('f0816d10-e7bc-40bb-8059-11dcd655cca3', { key: 'Click', value: 1 });
   }
 
   email() {
-    this.image.track.action('f0816d10-e7bc-40bb-8059-11dcd655cca3', { key: 'Click', value: 1 });
+    this.image.track.action('ec3f0bb1-17f0-4155-85cc-5990dae2c231', { key: 'Click', value: 1 });
   }
 }
