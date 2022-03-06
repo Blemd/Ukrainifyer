@@ -50,7 +50,6 @@ export class MainComponent implements AfterViewInit {
     let previousOpacity = 0;
     setInterval(() => {
       if (previousOpacity != (this.opacity / 100)) {
-        console.log("Update")
         this.imageService.opacity.next(this.opacity / 100);
       }
 

@@ -2,6 +2,8 @@
     <app-cropper></app-cropper>
 </div>
 
+<app-share *ngIf="this.imageService.showFeedback.value"></app-share>
+
 <div class="main-content" [ngClass]="{center: isMain}">
     <router-outlet></router-outlet>
 </div>

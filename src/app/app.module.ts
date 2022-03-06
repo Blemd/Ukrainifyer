@@ -10,6 +10,7 @@ import {NgxSliderModule} from "@angular-slider/ngx-slider";
 import { PolicyComponent } from './policy/policy.component';
 import { ImprintComponent } from './imprint/imprint.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ShareComponent } from './share/share.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AppRoutingModule } from './app-routing.module';
     MainComponent,
     CropperComponent,
     PolicyComponent,
-    ImprintComponent
+    ImprintComponent,
+    ShareComponent
   ],
   imports: [
     BrowserModule,

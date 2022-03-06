@@ -16,7 +16,6 @@
     <ngx-slider [(value)]="opacity" [options]="options"></ngx-slider>
 </div>
 
-
 <button class="btn" #uploadBtn *ngIf="this.imageService.isReset.value">
   <input #imageInput type="file" accept="image/*" (change)="openCropper(imageInput)">
   <span>Choose your avatar</span>
@@ -29,9 +28,6 @@
     <span>Download avatar</span>
   </button>
 </div>
-<!--
-<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Look at my new profile which I created with #ukrainifyer" data-url="https://ukrainifyer.de" data-related="mondei1,blemd27" data-dnt="true" data-show-count="false">Tweet</a>
--->
 <div class="disclaimer">
     <p>Avatars do not get uploaded anywhere. Everything is client-side.</p>
     <p>Read our <a routerLink="/policy" routerLinkActive="router-link-active">privacy policy</a> and <a routerLink="/imprint" routerLinkActive="router-link-active">Imprint</a></p>

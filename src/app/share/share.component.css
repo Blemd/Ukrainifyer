@@ -1,0 +1,71 @@
+.share-bg {
+  z-index: 99;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.56);
+}
+
+.content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  z-index: 200;
+  background-color: #fff;
+  border: 2px solid var(--darker-white);
+  padding: 0.25rem 1rem 1rem;
+  border-radius: 10px;
+}
+
+.buttons {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+  grid-template-columns: auto 1fr 2fr 1fr auto;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "twitter . close . email";
+}
+
+.twitter {
+  grid-area: twitter;
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  width: fit-content;
+  color: #fff;
+  padding: 0.25rem;
+  border-radius: 12px;
+  background-color: #1DA1F2;
+}
+
+.close {
+  grid-area: close;
+  display: flex;
+  border: 3px solid #14171A;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.email {
+  grid-area: email;
+  color: #fff;
+  background-color: #14171A;
+  width: fit-content;
+  display: flex;
+  border: 3px solid #14171A;
+  border-radius: 8px;
+}
+
+.twitter *, .close *, .email * {
+  padding: 0.35rem;
+}
+
+.twitter span, .close span, .email span {
+  margin: auto auto;
+}

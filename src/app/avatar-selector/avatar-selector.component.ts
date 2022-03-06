@@ -35,15 +35,6 @@ export class AvatarSelectorComponent implements OnInit {
     this.overlaySrc = this.imageService.getTemplatePathByName();
     this.overlayName = this.imageService.getTemplateName();
 
-    this.imageService.finalImageData.subscribe(image => {
-      if (image === "") return;
-
-      console.debug("New image has been saved. Display ...");
-
-      // Generate base64 url
-      // this.imageURL = this.sanitizer.bypassSecurityTrustResourceUrl(image);
-    });
-
     this.imageService.redraw.subscribe(_ => {
       this.updatePreview().catch(err => {
         // Suppress
@@ -63,10 +54,11 @@ export class AvatarSelectorComponent implements OnInit {
     let template = this.imageService.getTemplatePathByIndex(this.overlayIndex);
     this.imageService.template.next(template);
     this.selectedTemplate.emit(template);
-    this.updatePreview();
 
     this.overlaySrc = this.imageService.getTemplatePathByName(template);
     this.overlayName = this.imageService.getTemplateName(template);
+
+    this.updatePreview();
   }
 
   previous() {

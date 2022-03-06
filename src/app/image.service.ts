@@ -26,6 +26,7 @@ export class ImageService {
   track: ackeeTracker.AckeeInstance;
 
   showCropper: BehaviorSubject<boolean>;
+  showFeedback: BehaviorSubject<boolean>;
 
   // Holds original selected image file as Base64.
   imageData?: string;
@@ -47,6 +48,7 @@ export class ImageService {
     this.mask = new BehaviorSubject<TemplateMasks | null>(null);
     this.isReset = new BehaviorSubject<boolean>(true);
     this.showCropper = new BehaviorSubject<boolean>(false);
+    this.showFeedback = new BehaviorSubject<boolean>(false);
     this.finalImageData = new BehaviorSubject<string>("");
     this.redraw = new BehaviorSubject<null>(null);
 
@@ -57,7 +59,7 @@ export class ImageService {
     this.isReset.subscribe(status => {
       if (status) {
         toDataURL("assets/avatar.png").then(base64 => {
-          this.finalImageData.next(base64);
+            this.finalImageData.next(base64);
         });
       }
     });
@@ -269,6 +271,8 @@ export class ImageService {
 
       // Remove element from DOM
       document.body.removeChild(anchor);
+
+      this.showFeedback.next(true);
     });
   }
 }
