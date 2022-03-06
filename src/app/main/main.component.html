@@ -1,19 +1,19 @@
 <div class="headline">
-  <h1>Ukrainifyer</h1>
-  <p>To set a sign, you can "Ukrainify" your avatar here.</p>
+    <h1>Ukrainifyer</h1>
+    <p>To set a sign, you can "Ukrainify" your avatar here.</p>
 </div>
 
 <div class="image-chooser">
-  <app-avatar-selector class="custom-slider" (selectedTemplate)="updateTemplate($event)" [overlayOpacity]="opacity / 100"></app-avatar-selector>
+    <app-avatar-selector class="custom-slider" (selectedTemplate)="updateTemplate($event)" [overlayOpacity]="opacity / 100"></app-avatar-selector>
 </div>
 
 <canvas style="display: none;" #canvas height="512" width="512"></canvas>
 
 <div class="options">
-  <input #applyCircle (change)="updateMask($event)" id="useCircle" type="checkbox">
-  <label for="useCircle">Apply circle</label>
-  <p style="text-align: center">Opacity of template</p>
-  <ngx-slider [(value)]="opacity" [options]="options"></ngx-slider>
+    <input #applyCircle (change)="updateMask($event)" id="useCircle" type="checkbox">
+    <label for="useCircle">Apply circle</label>
+    <p style="text-align: center">Opacity of template</p>
+    <ngx-slider [(value)]="opacity" [options]="options"></ngx-slider>
 </div>
 
 
@@ -22,10 +22,10 @@
   <span>Choose your avatar</span>
 </button>
 <div class="afterCrop" *ngIf="!this.imageService.isReset.value">
-  <button style="margin-right: 1rem" class="btn" (click)="reset()">
+    <button style="margin-right: 1rem" class="btn" (click)="reset()">
     <span>Reset</span>
   </button>
-  <button class="btn" (click)="this.imageService.downloadImage()">
+    <button class="btn" (click)="this.imageService.downloadImage()">
     <span>Download avatar</span>
   </button>
 </div>
@@ -33,17 +33,18 @@
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Look at my new profile which I created with #ukrainifyer" data-url="https://ukrainifyer.de" data-related="mondei1,blemd27" data-dnt="true" data-show-count="false">Tweet</a>
 -->
 <div class="disclaimer">
-  <p>Avatars do not get uploaded anywhere. Everything is client-side.</p>
-  <p>Read our <a href="#">privacy policy</a></p>
+    <p>Avatars do not get uploaded anywhere. Everything is client-side.</p>
+    <p>Read our <a href="#">privacy policy</a> and <a href="#">Imprint</a></p>
 </div>
 
 <div class="authors">
-  <p>Source code on <a href="https://github.com/Blemd/Ukrainifyer" target="_blank" rel="noopener noreferrer">
-    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="#9d9d9d" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <p>Source code on
+        <a href="https://github.com/Blemd/Ukrainifyer" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="#9d9d9d" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
       <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
-    </svg></a></p>
-  <p>by <a href="https://github.com/mondei1" target="_blank" rel="noopener noreferrer">Nicolas Klier</a> and <a href="https://github.com/Blemd" target="_blank" rel="noopener noreferrer">Felix Schaar</a></p>
-  <small>v1.0</small>
+    </svg></a>
+    </p>
+    <p>by <a href="https://github.com/mondei1" target="_blank" rel="noopener noreferrer">Nicolas Klier</a> and <a href="https://github.com/Blemd" target="_blank" rel="noopener noreferrer">Felix Schaar</a></p>
+    <small>v1.0</small>
 </div>
-
