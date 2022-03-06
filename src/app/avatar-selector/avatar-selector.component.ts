@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ImageService, Template} from "../image.service";
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ImageService, Template, TemplateMasks} from "../image.service";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {toDataURL} from "../helper";
 
 @Component({
   selector: 'app-avatar-selector',
@@ -9,6 +10,8 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 })
 export class AvatarSelectorComponent implements OnInit {
 
+  PREVIEW_SIZE = 256;
+
   @Input()
   overlayOpacity: number = 0.5;
 
@@ -16,6 +19,9 @@ export class AvatarSelectorComponent implements OnInit {
   selectedTemplate: EventEmitter<Template>;
   overlayIndex: number = 0;
   overlayName?: string;
+
+  @ViewChild("preview")
+  canvas!: ElementRef;
 
   imageURL?: SafeResourceUrl;
   overlaySrc?: string;
@@ -35,16 +41,27 @@ export class AvatarSelectorComponent implements OnInit {
       console.debug("New image has been saved. Display ...");
 
       // Generate base64 url
-      this.imageURL = this.sanitizer.bypassSecurityTrustResourceUrl(image);
+      // this.imageURL = this.sanitizer.bypassSecurityTrustResourceUrl(image);
     });
 
-    this.imageURL = "assets/avatar.png";
+    this.imageService.redraw.subscribe(_ => {
+      this.updatePreview();
+    });
   }
 
-  private updateOverlay() {
+  private async updatePreview() {
+    const newCanvas = await this.imageService.renderImage(this.PREVIEW_SIZE);
+    const data = newCanvas.getContext("2d")!.getImageData(0, 0, this.PREVIEW_SIZE, this.PREVIEW_SIZE);
+
+    let canvas = this.canvas.nativeElement as HTMLCanvasElement;
+    canvas.getContext("2d")!.putImageData(data, 0, 0);
+  }
+
+  private update() {
     let template = this.imageService.getTemplatePathByIndex(this.overlayIndex);
-    console.log(template);
+    this.imageService.template.next(template);
     this.selectedTemplate.emit(template);
+    this.updatePreview();
 
     this.overlaySrc = this.imageService.getTemplatePathByName(template);
     this.overlayName = this.imageService.getTemplateName(template);
@@ -57,7 +74,7 @@ export class AvatarSelectorComponent implements OnInit {
       this.overlayIndex = this.imageService.getTemplateAmount();
     }
 
-    this.updateOverlay();
+    this.update();
   }
 
   next() {
@@ -67,6 +84,6 @@ export class AvatarSelectorComponent implements OnInit {
       this.overlayIndex = 0;
     }
 
-    this.updateOverlay();
+    this.update();
   }
 }

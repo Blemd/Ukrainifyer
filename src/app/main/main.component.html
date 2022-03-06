@@ -10,22 +10,22 @@
 <canvas style="display: none;" #canvas height="512" width="512"></canvas>
 
 <div class="options">
+  <input #applyCircle (change)="updateMask($event)" id="useCircle" type="checkbox">
+  <label for="useCircle">Apply circle</label>
   <p style="text-align: center">Opacity of template</p>
   <ngx-slider [(value)]="opacity" [options]="options"></ngx-slider>
 </div>
 
 
-<button class="btn" #uploadBtn *ngIf="this.imageService.finalImageData.value == ''">
+<button class="btn" #uploadBtn *ngIf="this.imageService.isReset.value">
   <input #imageInput type="file" accept="image/*" (change)="openCropper(imageInput)">
   <span>Choose your avatar</span>
 </button>
-<div class="afterCrop" *ngIf="this.imageService.finalImageData.value != ''">
-  <button class="btn" #uploadBtn>
-    <input #imageInput type="file" accept="image/*" (change)="openCropper(imageInput)">
+<div class="afterCrop" *ngIf="!this.imageService.isReset.value">
+  <button style="margin-right: 1rem" class="btn" (click)="reset()">
     <span>Reset</span>
   </button>
-  <button class="btn" (click)="downloadImage()">
-    <input #imageInput type="file" accept="image/*" (change)="openCropper(imageInput)">
+  <button class="btn" (click)="this.imageService.downloadImage()">
     <span>Download avatar</span>
   </button>
 </div>
@@ -44,5 +44,6 @@
       <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
     </svg></a></p>
   <p>by <a href="https://github.com/mondei1" target="_blank" rel="noopener noreferrer">Nicolas Klier</a> and <a href="https://github.com/Blemd" target="_blank" rel="noopener noreferrer">Felix Schaar</a></p>
+  <small>v1.0</small>
 </div>
 

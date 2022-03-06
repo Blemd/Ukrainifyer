@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import {ImageService, Template} from "../image.service";
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {ImageService, Template, TemplateMasks} from "../image.service";
 import {Options} from "@angular-slider/ngx-slider";
 
 @Component({
@@ -15,11 +15,16 @@ export class MainComponent implements AfterViewInit {
     ariaLabel: "Opacity",
 
   };
+
+
   opacity: number = 65;
 
   @ViewChild('canvas')
   canvasRef!: ElementRef;
   canvas?: HTMLCanvasElement;
+
+  @ViewChild('applyCircle')
+  applyCircle!: ElementRef;
 
   @ViewChild('uploadBtn')
   uploadBtn!: ElementRef;
@@ -35,15 +40,22 @@ export class MainComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.imageService.finalImageData.subscribe(val => {
-    });
-
     this.uploadBtn.nativeElement.onmouseover = () => {
       this.hover = true;
     }
     this.uploadBtn.nativeElement.onmouseleave = () => {
       this.hover = false;
     }
+
+    let previousOpacity = 0;
+    setInterval(() => {
+      if (previousOpacity != (this.opacity / 100)) {
+        console.log("Update")
+        this.imageService.opacity.next(this.opacity / 100);
+      }
+
+      previousOpacity = this.imageService.opacity.value;
+    }, 20);
 
     this.canvas = this.canvasRef.nativeElement!;
     this.ctx = this.canvas!.getContext("2d")!;
@@ -62,54 +74,19 @@ export class MainComponent implements AfterViewInit {
     reader.readAsDataURL(event.files[0]);
   }
 
-  /**
-   * Put both images into one canvas and then convert this canvas into a Base64 string which can be downloaded.
-   */
-  downloadImage() {
-    if (this.imageService.imageData === undefined && this.selectedTemplate === undefined) {
-      return;
-    }
-
-    let avatar = new Image();
-    avatar.onload = () => {
-      this.canvas!.height = avatar.height;
-      this.canvas!.width = avatar.width;
-
-      this.ctx?.drawImage(avatar, 0, 0);
-
-      let templateOverlay = new Image();
-      templateOverlay.onload = () => {
-        this.ctx!.globalAlpha = this.opacity / 100;
-        this.ctx?.drawImage(templateOverlay, 0, 0, avatar.width, avatar.height);
-
-        this.canvas?.toBlob(blob => {
-          if (blob === null) return;
-
-          const objectURL = URL.createObjectURL(blob);
-
-          const anchor = document.createElement('a');
-          anchor.href = objectURL;
-          anchor.download = "UkrainifyedAvatar.png";
-
-          // Append to the DOM
-          document.body.appendChild(anchor);
-
-          // Trigger `click` event
-          anchor.click();
-
-          // Remove element from DOM
-          document.body.removeChild(anchor);
-        });
-      }
-
-      console.log("Use template:", this.selectedTemplate, "at", this.imageService.getTemplatePathByName(this.selectedTemplate));
-      templateOverlay.src = this.imageService.getTemplatePathByName(this.selectedTemplate);
-    }
-
-    avatar.src = this.imageService.finalImageData.value!;
-  }
-
   updateTemplate($event: Template) {
     this.selectedTemplate = $event;
+  }
+
+  updateMask(event: Event) {
+    const elem = this.applyCircle.nativeElement as HTMLInputElement;
+    this.imageService.mask.next(elem.checked ? TemplateMasks.CIRCLE_MASK : null);
+
+    // This will trigger the render function in the preview component.
+    this.imageService.opacity.next(this.opacity / 100);
+  }
+
+  reset() {
+    this.imageService.isReset.next(true);
   }
 }

@@ -2,8 +2,11 @@
   <p class="title">{{ overlayName }}</p>
   <img class="left-caret" (click)="previous()" src="assets/icons/tabler-icon-caret-left.svg">
 
+  <!--
   <img class="avatar-overlay" [src]="overlaySrc" [ngStyle]="{ 'opacity': overlayOpacity, 'z-index': '5' }">
   <img class="avatar-image" [src]="imageURL">
+  -->
+  <canvas #preview class="avatar-image" [width]="PREVIEW_SIZE" [height]="PREVIEW_SIZE"></canvas>
 
   <img class="right-caret" (click)="next()" src="assets/icons/tabler-icon-caret-right.svg">
   <a class="download" [href]="overlaySrc">

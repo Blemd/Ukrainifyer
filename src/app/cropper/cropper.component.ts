@@ -27,6 +27,7 @@ export class CropperComponent implements OnInit {
     if (event.base64 !== null) {
       if (event.base64 != null) {
         this.imageService.finalImageData.next(event.base64);
+        this.imageService.isReset.next(false);
 
         // This will destroy this component
         this.imageService.showCropper.next(false);
@@ -42,6 +43,7 @@ export class CropperComponent implements OnInit {
    * User clicks on "Done" button
    */
   cropImage() {
+    // This will eventually call imageCropped()
     this.imageCropper.crop();
   }
 
